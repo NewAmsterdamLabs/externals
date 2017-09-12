@@ -8,28 +8,32 @@ This will run the server in the foreground.  If you want to stop the server, pre
 
 The available endpoints are as follows:
 
-<ul>
-  <li>GET localhost:5000/id/<id>
-    <ul style='list-style-type: none'>
-      <li><i>Description</i>: Returns an invoice record with the specified id</li>
-      <li><i>Request Params</i>: None</li>
-      <li><i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}</li>
-    </ul>
-  </li>
-  <li>GET localhost:5000/list        - <i>Description</i>: Lists all invoices in server
-                                 <i>Request Params</i>: None
-                                 response payload: [{"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}, {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 11, "invoice_date": "2017-03-01","po_number": "7BYBP3K6W4"}]
-  </li>
-  <li>POST localhost:5000            - <i>Description</i>: Saves an invoice that is in the request payload. The invoice must be in json format with the following fields: po_number, invoice_date, due_date, amount_cents 
-                                 <i>Request Params (body)</i> : {"amount_cents": 15000, "due_date": "2017-03-15", "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"} 
-                                 <i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
-  </li>
-  <li>PUT localhost:5000/id/<id>     - <i>Description</i>: Updates an invoice with specific id with the invoice in the request payload. The invoice must be in json format with the following fields: po_number, invoice_date, due_date, amount_cents 
-                                 <i>Request Params (body)</i>: {"amount_cents": 15000, "due_date": "2017-03-15", "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"} 
-                                 <i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
-  </li>
-  <li>DELETE localhost:5000/id/<id>  - <i>Description</i>: Removes an invoice with he specific id
-                                 <i>Request Params</i>: None
-                                 <i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
-  </li>
-</ul>
+* **GET localhost:5000/id/[ID]**
+
+   *Description*: Returns an invoice record with the specified id  
+   *Request Params*: None  
+   *Response Payload*: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
+   
+* **GET localhost:5000/list**
+
+   *Description*: Lists all invoices in server  
+   *Request Params*: None  
+   *Response Payload*: [{"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}, {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 11, "invoice_date": "2017-03-01","po_number": "7BYBP3K6W4"}]
+   
+* **POST localhost:5000**
+
+   *Description*: Saves an invoice that is in the request payload. The invoice must be in json format with the following fields: po_number, invoice_date, due_date, amount_cents  
+   *Request Params (body)* : {"amount_cents": 15000, "due_date": "2017-03-15", "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}  
+   *Response Payload*: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
+
+* **PUT localhost:5000/id/[ID]**
+
+   *Description*: Updates an invoice with specific id with the invoice in the request payload. The invoice must be in json format with the following fields: po_number, invoice_date, due_date, amount_cents  
+   *Request Params (body)*: {"amount_cents": 15000, "due_date": "2017-03-15", "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}  
+   *Response Payload*: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
+   
+* **DELETE localhost:5000/id/[ID]**
+
+   *Description*: Removes an invoice with he specific id  
+   *Request Params*: None  
+   *Response Payload*: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
