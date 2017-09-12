@@ -1,8 +1,6 @@
 #!flask/bin/python
 from  invoice import Invoice
-from pprint import pprint
-from flask import Flask, jsonify
-from flask import abort
+from flask import abort, Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -24,9 +22,12 @@ def create():
 
     return jsonify(_invoices.create(request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
-@app.route('/', methods=['PUT'])
-def update():
-    return "Hello, World!"
+@app.route('/id/<int:id>', methods=['PUT'])
+def update(id):
+    if not request.json or not 'po_number' or not 'invoice_date' or not 'due_date' or not 'amount_cents' in request.json:
+        abort(400)
+
+    return jsonify(_invoices.update(id, request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
 @app.route('/id/<int:id>', methods=['DELETE'])
 def delete(id):
