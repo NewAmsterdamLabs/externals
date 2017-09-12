@@ -9,9 +9,12 @@ This will run the server in the foreground.  If you want to stop the server, pre
 The available endpoints are as follows:
 
 <ul>
-  <li>GET localhost:5000/id/<id>     - <i>Description</i>: Returns an invoice record with the specified id
-                                 <i>Request Params</i>: None
-                                 <i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}
+  <li>GET localhost:5000/id/<id>
+    <ul style='list-style-type: none'>
+      <li><i>Description</i>: Returns an invoice record with the specified id</li>
+      <li><i>Request Params</i>: None</li>
+      <li><i>Response Payload</i>: {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}</li>
+    </ul>
   </li>
   <li>GET localhost:5000/list        - <i>Description</i>: Lists all invoices in server
                                  <i>Request Params</i>: None
