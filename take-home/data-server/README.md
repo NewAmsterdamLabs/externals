@@ -1,5 +1,31 @@
 This is a simple python REST API server, build on the Flask framework, that will allow you to access a sample set of invoice data.
-The data is stored in a file under data/invoices.json and is read into in memory on start of the application. Therefore each execution
+To begin, you will need to have python 2.7 installed in your system.
+If you do not have python installed in your system, it can be obtained at:
+
+  `https://www.python.org/downloads/release/python-2713/`
+
+Next install virtualenv. This will nicely install all the libraries you need within your app without polluting the system lib. 
+You can install virtualenv with pip 
+
+  `$ [sudo] pip install virtualenv`
+
+Once Virtualenv is installed, we can go ahead and setup your virtual environment.
+
+  `$ virtualenv flask`
+
+Next, activate your virtual env:
+
+  `$ source flask/bin/activate`
+
+You can exit out of your virtual env any time by typing:
+
+  `$ deactivate`
+
+Finally install Flask:
+
+  `$ pip install Flask`
+
+Once completed, you should be able to start the server.  The data is stored in a file under data/invoices.json and is read into in memory on start of the application. Therefore each execution
 will reset the data to it's original values.  The server can be started by running the following command:
 
   `bin/start.sh`
