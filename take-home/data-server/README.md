@@ -1,4 +1,7 @@
 This is a simple python REST API server, build on the Flask framework, that will allow you to access a sample set of invoice data.
+
+You can download the packaged server under downloads/data-server.zip.
+
 To begin, you will need to have python 2.7 installed in your system.
 If you do not have python installed in your system, it can be obtained at:
 
@@ -9,7 +12,7 @@ You can install virtualenv with pip
 
   `$ [sudo] pip install virtualenv`
 
-Once Virtualenv is installed, we can go ahead and setup your virtual environment.
+Once Virtualenv is installed, unzip the data-server.zip and navigate to the directory data-server.  We can go ahead and setup your virtual environment in there.
 
   `$ virtualenv flask`
 
