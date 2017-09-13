@@ -13,6 +13,9 @@ class Invoice:
 
     def get(self, id):
         return [invoice for invoice in self._data if invoice['id'] == id]
+ 
+    def getByPoNumber(self, po_number):
+        return [invoice for invoice in self._data if invoice['po_number'] == po_number]
 
     def delete(self, id):
         for invoice in self._data:

@@ -11,21 +11,23 @@ _invoices = Invoice(data_file)
 def get(id):
     invoice = _invoices.get(id)
     if len(invoice) == 0:
-        abort(404)
+        return bad_request("Cannot find invoice with id " + str(id))
     return jsonify({'invoice': invoice[0]})
     
 
 @app.route('/', methods=['POST'])
 def create():
-    if not request.json or not 'po_number' or not 'invoice_date' or not 'due_date' or not 'amount_cents' in request.json:
-        abort(400)
+    response = validate(request.json)
+    if response is not None:
+        return response
 
     return jsonify(_invoices.create(request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
 @app.route('/id/<int:id>', methods=['PUT'])
 def update(id):
-    if not request.json or not 'po_number' or not 'invoice_date' or not 'due_date' or not 'amount_cents' in request.json:
-        abort(400)
+    response = validate(request.json)
+    if response is not None:
+        return response
 
     return jsonify(_invoices.update(id, request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
@@ -36,6 +38,30 @@ def delete(id):
 @app.route('/list', methods=['GET'])
 def list():
     return jsonify(_invoices.list())
+
+def bad_request(message):
+    response = jsonify({'error_message': message})
+    response.status_code = 500
+    return response
+
+def validate(json):
+    if not json:
+        return bad_request("Missing required post json.")
+  
+    if not 'po_number' in request.json:
+        return bad_request("Missing po number.")
+
+    if not 'invoice_date' in request.json:
+        return bad_request("Missing invoice date.")
+
+    if not 'due_date' in request.json:
+        return bad_request("Missing due date.")
+
+    if not 'amount_cents' in request.json:
+        return bad_request("Missing amount_cents.")
+
+    return None
+        
 
 if __name__ == '__main__':
     app.run(debug=True)
