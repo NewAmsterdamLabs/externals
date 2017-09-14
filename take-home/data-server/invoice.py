@@ -8,8 +8,18 @@ class Invoice:
         with open(data_file) as data:    
             self._data = json.load(data) 
 
-    def list(self):
-        return self._data
+    def list(self, params):
+        res = self._data
+        offset = params['offset']
+        limit = params['limit']
+
+        if 'po_number' in params:
+            res = []
+            for invoice in self._data:
+                if invoice['po_number'] == params['po_number']:
+                    res.append(invoice)
+
+        return res[offset:offset+limit]
 
     def get(self, id):
         return [invoice for invoice in self._data if invoice['id'] == id]

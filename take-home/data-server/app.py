@@ -17,7 +17,7 @@ def get(id):
 
 @app.route('/', methods=['POST'])
 def create():
-    response = validate(request.json)
+    response = validate_post_params(request.json)
     if response is not None:
         return response
 
@@ -25,7 +25,7 @@ def create():
 
 @app.route('/id/<int:id>', methods=['PUT'])
 def update(id):
-    response = validate(request.json)
+    response = validate_post_params(request.json)
     if response is not None:
         return response
 
@@ -37,14 +37,25 @@ def delete(id):
 
 @app.route('/list', methods=['GET'])
 def list():
-    return jsonify(_invoices.list())
+    params = {'offset': 0, 'limit': 10}
+
+    if request.args.get('offset'):
+        params['offset'] = int(request.args.get('offset'))
+
+    if request.args.get('limit'):
+        params['limit'] = int(request.args.get('limit'))
+
+    if request.args.get('po_number'):
+        params['po_number'] = request.args.get('po_number')
+
+    return jsonify(_invoices.list(params))
 
 def bad_request(message):
     response = jsonify({'error_message': message})
     response.status_code = 500
     return response
 
-def validate(json):
+def validate_post_params(json):
     if not json:
         return bad_request("Missing required post json.")
   
