@@ -40,7 +40,11 @@ The available endpoints are as follows:
 * **GET localhost:5000/list**
 
    *Description*: Lists all invoices in server  
-   *Request Params*: None  
+   *Request Params (URL)*:
+     * offset - The offset from where you want to list
+     * limit - How many records you want to return
+     * po_number - Invoices with the purchase order number.  
+     
    *Response Payload*: [{"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 10, "invoice_date": "2017-03-01", "po_number": "8LQ0VER5R0"}, {"amount_cents": 15000, "created_at": "2017-04-15T01:02:03Z", "due_date": "2017-03-15", "id": 11, "invoice_date": "2017-03-01","po_number": "7BYBP3K6W4"}]
 
 * **POST localhost:5000**
