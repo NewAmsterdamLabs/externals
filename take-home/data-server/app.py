@@ -71,7 +71,7 @@ def validate_post_params(json):
     if not 'amount_cents' in json:
         return bad_request("Missing amount_cents.")
 
-    if json['po_number'] == "Z000000000":
+    if json['po_number'] == "Z0000000000":
         return bad_request("PO Number Z000000000 is not allowed")
 
     return None
