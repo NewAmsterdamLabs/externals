@@ -39,6 +39,7 @@ class Invoice:
             'id': max(ids) + 1,
             'po_number': po_number,
             'due_date': due_date,
+            'invoice_date': invoice_date,
             'amount_cents': amount_cents,
             'created_at': datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
         }

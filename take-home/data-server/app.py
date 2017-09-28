@@ -59,17 +59,20 @@ def validate_post_params(json):
     if not json:
         return bad_request("Missing required post json.")
   
-    if not 'po_number' in request.json:
+    if not 'po_number' in json:
         return bad_request("Missing po number.")
 
-    if not 'invoice_date' in request.json:
+    if not 'invoice_date' in json:
         return bad_request("Missing invoice date.")
 
-    if not 'due_date' in request.json:
+    if not 'due_date' in json:
         return bad_request("Missing due date.")
 
-    if not 'amount_cents' in request.json:
+    if not 'amount_cents' in json:
         return bad_request("Missing amount_cents.")
+
+    if json['po_number'] == "Z000000000":
+        return bad_request("PO Number Z000000000 is not allowed")
 
     return None
         
