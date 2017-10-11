@@ -18,9 +18,13 @@ Next, activate your virtual environment:
 
   `$ source flask/bin/activate`
 
-Finally install Flask (from within your virtual environment):
+Install Flask (from within your virtual environment):
 
   `$ pip install Flask`
+
+You'll also have to install Flask-CORS extensions to allow for AJAX to work on your web app:
+
+  `$ pip install -U flask-cors`
 
 Once completed, you should be able to start the server.  The data is stored in a file under data/invoices.json and is read into in memory on start of the application. Therefore each execution
 will reset the data to it's original values.  The server can be started by running the following command:
