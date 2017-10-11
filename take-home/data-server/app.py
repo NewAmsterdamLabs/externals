@@ -1,8 +1,10 @@
 #!flask/bin/python
 from  invoice import Invoice
 from flask import abort, Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 data_file = 'data/invoices.json'
 _invoices = Invoice(data_file)
@@ -12,7 +14,7 @@ def get(id):
     invoice = _invoices.get(id)
     if len(invoice) == 0:
         return error_response("Cannot find invoice with id " + str(id))
-    return create_response(jsonify({'invoice': invoice[0]}))
+    return jsonify({'invoice': invoice[0]})
     
 
 @app.route('/', methods=['POST'])
@@ -21,19 +23,19 @@ def create():
     if response is not None:
         return response
 
-    return create_response(jsonify(_invoices.create(request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents'])))
+    return jsonify(_invoices.create(request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
-@app.route('/id/<int:id>', methods=['PUT', 'OPTIONS'])
+@app.route('/id/<int:id>', methods=['PUT'])
 def update(id):
     response = validate_post_params(request.json)
     if response is not None:
         return response
 
-    return create_response(jsonify(_invoices.update(id, request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents'])))
+    return jsonify(_invoices.update(id, request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents']))
 
 @app.route('/id/<int:id>', methods=['DELETE'])
 def delete(id):
-    return create_response(jsonify(_invoices.delete(id)))
+    return jsonify(_invoices.delete(id))
 
 @app.route('/list', methods=['GET'])
 def list():
@@ -48,12 +50,12 @@ def list():
     if request.args.get('po_number'):
         params['po_number'] = request.args.get('po_number')
 
-    return create_response(jsonify(_invoices.list(params)))
+    return jsonify(_invoices.list(params))
 
 def error_response(message):
     response = jsonify({'error_message': message})
     response.status_code = 500
-    return create_response(response)
+    return response
 
 def validate_post_params(json):
     if not json:
@@ -75,11 +77,6 @@ def validate_post_params(json):
         return error_response("PO Number Z000000000 is not allowed")
 
     return None
-
-def create_response(resp):
-    resp.headers.add('Access-Control-Allow-Origin', '*')
-    resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE, PUT')
-    return resp
 
 if __name__ == '__main__':
     app.run(debug=True)
