@@ -11,7 +11,7 @@ _invoices = Invoice(data_file)
 def get(id):
     invoice = _invoices.get(id)
     if len(invoice) == 0:
-        return bad_request("Cannot find invoice with id " + str(id))
+        return error_response("Cannot find invoice with id " + str(id))
     return create_response(jsonify({'invoice': invoice[0]}))
     
 
@@ -19,15 +19,15 @@ def get(id):
 def create():
     response = validate_post_params(request.json)
     if response is not None:
-        return create_response(response)
+        return response
 
     return create_response(jsonify(_invoices.create(request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents'])))
 
-@app.route('/id/<int:id>', methods=['PUT'])
+@app.route('/id/<int:id>', methods=['PUT', 'OPTIONS'])
 def update(id):
     response = validate_post_params(request.json)
     if response is not None:
-        return create_response(response)
+        return response
 
     return create_response(jsonify(_invoices.update(id, request.json['po_number'], request.json['invoice_date'], request.json['due_date'], request.json['amount_cents'])))
 
@@ -50,34 +50,35 @@ def list():
 
     return create_response(jsonify(_invoices.list(params)))
 
-def bad_request(message):
+def error_response(message):
     response = jsonify({'error_message': message})
     response.status_code = 500
     return create_response(response)
 
 def validate_post_params(json):
     if not json:
-        return bad_request("Missing required post json.")
+        return error_response("Missing required post json.")
   
     if not 'po_number' in json:
-        return bad_request("Missing po number.")
+        return error_response("Missing po number.")
 
     if not 'invoice_date' in json:
-        return bad_request("Missing invoice date.")
+        return error_response("Missing invoice date.")
 
     if not 'due_date' in json:
-        return bad_request("Missing due date.")
+        return error_response("Missing due date.")
 
     if not 'amount_cents' in json:
-        return bad_request("Missing amount_cents.")
+        return error_response("Missing amount_cents.")
 
     if json['po_number'] == "Z0000000000":
-        return bad_request("PO Number Z000000000 is not allowed")
+        return error_response("PO Number Z000000000 is not allowed")
 
     return None
 
 def create_response(resp):
     resp.headers.add('Access-Control-Allow-Origin', '*')
+    resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE, PUT')
     return resp
 
 if __name__ == '__main__':
